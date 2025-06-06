@@ -2,16 +2,26 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  {
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', loadComponent: () => import('./pages/login/login.page').then(m => m.LoginPage) },
+    {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
   {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
+    path: 'agendar-cita',
+    loadChildren: () => import('./pages/agendar-cita/agendar-cita.module').then( m => m.AgendarCitaPageModule)
+  },
+  {
+    path: 'perfil',
+    loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
+  },
+  {
+    path: 'catalogo',
+    loadChildren: () => import('./pages/catalogo/catalogo.module').then( m => m.CatalogoPageModule)
   },
 ];
+
 
 @NgModule({
   imports: [

@@ -1,0 +1,57 @@
+.title {
+    font-weight: bold;
+    font-size: 22px;
+    color: #d81b60;
+    text-align: center;
+}
+
+.agendar-content {
+    background: #fff0f5;
+    /* mismo rosa claro del Home */
+    display: flex;
+    justify-content: center;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 500px;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.logo {
+    width: 130px;
+    height: auto;
+    margin: 0 auto 20px auto;
+    display: block;
+}
+
+.subtitle {
+    font-size: 18px;
+    color: #ad1457;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+ion-item {
+    --highlight-color-focused: #f48fb1;
+    --border-color: #f8bbd0;
+    --border-radius: 10px;
+    padding: 6px;
+}
+
+ion-label {
+    color: #ad1457;
+    font-weight: 500;
+}
+
+.agendar-button {
+    margin-top: 20px;
+    --background: #f48fb1;
+    --background-hover: #f06292;
+    --color: white;
+    --border-radius: 10px;
+    font-weight: bold;
+}

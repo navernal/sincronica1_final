@@ -1,0 +1,47 @@
+<ion-header>
+    <ion-toolbar color="light">
+        <ion-title class="title">Agendar Cita</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="agendar-content ion-padding">
+    <div class="form-container">
+        <img src="assets/logo.png" alt="Logo Easy Nails" class="logo" />
+
+        <h2 class="subtitle">¡Reserva tu momento especial!</h2>
+
+        <ion-item fill="outline">
+            <ion-label position="floating">Nombre completo</ion-label>
+            <ion-input type="text"></ion-input>
+        </ion-item>
+
+        <ion-item fill="outline">
+            <ion-label position="floating">Correo electrónico</ion-label>
+            <ion-input type="email"></ion-input>
+        </ion-item>
+
+        <ion-item fill="outline">
+            <ion-label position="floating">Fecha</ion-label>
+            <ion-datetime presentation="date"></ion-datetime>
+        </ion-item>
+
+        <ion-item fill="outline">
+            <ion-label position="floating">Hora</ion-label>
+            <ion-datetime presentation="time"></ion-datetime>
+        </ion-item>
+
+        <ion-item fill="outline">
+            <ion-label position="floating">Servicio</ion-label>
+            <ion-select interface="popover" placeholder="Selecciona un servicio">
+                <ion-select-option value="manicure">Manicure</ion-select-option>
+                <ion-select-option value="esmaltado">Esmaltado permanente</ion-select-option>
+                <ion-select-option value="polygel">Polygel</ion-select-option>
+                <ion-select-option value="pestanas">Lifting de pestañas</ion-select-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-button expand="block" class="agendar-button">
+            Confirmar Cita
+        </ion-button>
+    </div>
+</ion-content>

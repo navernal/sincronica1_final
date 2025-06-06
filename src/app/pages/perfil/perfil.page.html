@@ -1,0 +1,29 @@
+<ion-header>
+    <ion-toolbar color="light">
+        <ion-title class="title">Manicuristas</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="perfil-content ion-padding">
+    <ion-list>
+        <ion-card *ngFor="let manicurista of manicuristas" class="perfil-card">
+            <ion-card-header>
+                <ion-card-title>{{ manicurista.nombre }}</ion-card-title>
+            </ion-card-header>
+
+            <ion-card-content>
+                <p><strong>Dirección:</strong> {{ manicurista.direccion }}</p>
+                <p><strong>Teléfono:</strong> {{ manicurista.telefono }}</p>
+                <p>
+                    <strong>Instagram:</strong>
+                    <a href="{{ manicurista.instagram }}" target="_blank" rel="noopener noreferrer">
+            {{ manicurista.instagram }}
+          </a>
+                </p>
+                <ion-button expand="block" class="catalogo-button" (click)="verCatalogo(manicurista.id)">
+                    Ver catálogo
+                </ion-button>
+            </ion-card-content>
+        </ion-card>
+    </ion-list>
+</ion-content>

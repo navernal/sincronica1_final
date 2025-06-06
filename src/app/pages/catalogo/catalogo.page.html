@@ -1,0 +1,37 @@
+<ion-header>
+    <ion-toolbar color="light">
+        <ion-title class="title">Catálogo</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <ion-card *ngFor="let trabajo of trabajos">
+        <img src="../assets/img/foto1.jpg" alt="Imagen de uñas" style="width: 300px; height:auto" />
+        <ion-card-header>
+            <ion-card-subtitle>Realizado el: {{ trabajo.fecha }}</ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content>
+            <ion-label><strong>Comentarios:</strong></ion-label>
+            <ion-list *ngIf="trabajo.comentarios.length > 0">
+                <ion-item *ngFor="let comentario of trabajo.comentarios">
+                    <ion-label>
+                        <strong>{{ comentario.nombreCliente }}:</strong> {{ comentario.mensaje }}
+                        <div class="fecha">{{ comentario.fechaComentario }}</div>
+                    </ion-label>
+                </ion-item>
+            </ion-list>
+            <ion-text *ngIf="trabajo.comentarios.length === 0">Aún no hay comentarios.</ion-text>
+
+            <ion-item>
+                <ion-input [(ngModel)]="nombreCliente" placeholder="Tu nombre"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-textarea [(ngModel)]="nuevoComentario" placeholder="Escribe tu comentario..."></ion-textarea>
+            </ion-item>
+            <ion-button expand="block" (click)="agregarComentario(trabajo.id)">
+                Agregar comentario
+            </ion-button>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

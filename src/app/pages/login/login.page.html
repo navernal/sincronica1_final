@@ -1,0 +1,30 @@
+<ion-content class="ion-padding login-bg">
+
+    <div class="login-container">
+        <img src="assets/icon/easy-nails.png" alt="Easy Nails" class="logo" />
+
+        <h1 class="title">Bienvenida a Easy Nails</h1>
+        <p class="subtitle">Tu espacio de belleza y relajo</p>
+
+        <ion-card class="login-card">
+            <ion-card-content>
+                <ion-item class="input-item" lines="inset">
+                    <ion-label position="stacked">Correo electrónico</ion-label>
+                    <ion-input type="email" placeholder="ejemplo@correo.com" class="custom-input"></ion-input>
+                </ion-item>
+
+                <ion-item class="input-item" lines="inset">
+                    <ion-label position="stacked">Contraseña</ion-label>
+                    <ion-input type="password" placeholder="Ingresa tu contraseña" class="custom-input"></ion-input>
+                </ion-item>
+
+                <ion-button expand="block" class="login-button" (click)="login()">Iniciar sesión</ion-button>
+
+            </ion-card-content>
+        </ion-card>
+
+        <p class="registro-link">
+            ¿No tienes cuenta? <a href="#">Regístrate aquí</a>
+        </p>
+    </div>
+</ion-content>

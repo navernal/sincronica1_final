@@ -1,0 +1,46 @@
+.title {
+    font-weight: bold;
+    font-size: 22px;
+    color: #d81b60;
+    text-align: center;
+}
+
+.perfil-content {
+    background: #fff0f5;
+}
+
+.perfil-card {
+    margin-bottom: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(244, 143, 177, 0.3);
+    padding: 15px;
+    ion-card-title {
+        color: #ad1457;
+        font-weight: bold;
+        font-size: 20px;
+    }
+    p {
+        color: #6a1b4d;
+        font-weight: 500;
+        margin: 5px 0;
+        strong {
+            color: #d81b60;
+        }
+        a {
+            color: #f48fb1;
+            text-decoration: none;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+.catalogo-button {
+    margin-top: 15px;
+    --background: #f48fb1;
+    --background-hover: #f06292;
+    --color: white;
+    --border-radius: 10px;
+    font-weight: bold;
+}
