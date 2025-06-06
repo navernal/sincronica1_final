@@ -1,0 +1,7 @@
+{
+  "name": "sincronica1final",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
