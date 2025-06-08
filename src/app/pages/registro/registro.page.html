@@ -1,0 +1,37 @@
+<ion-content class="ion-padding registro-bg">
+    <div class="registro-container">
+        <img src="assets/icon/easy-nails.png" alt="Easy Nails" class="logo" />
+
+        <h1 class="title">Crea tu cuenta</h1>
+        <p class="subtitle">Accede a todos los beneficios 💖</p>
+
+        <ion-card class="registro-card">
+            <ion-card-content>
+
+                <ion-item class="input-item" lines="inset">
+                    <ion-label position="stacked">Nombre completo</ion-label>
+                    <ion-input type="text" placeholder="Tu nombre completo"></ion-input>
+                </ion-item>
+
+                <ion-item class="input-item" lines="inset">
+                    <ion-label position="stacked">Correo electrónico</ion-label>
+                    <ion-input type="email" placeholder="ejemplo@correo.com"></ion-input>
+                </ion-item>
+
+                <ion-item class="input-item" lines="inset">
+                    <ion-label position="stacked">Contraseña</ion-label>
+                    <ion-input type="password" placeholder="Crea una contraseña"></ion-input>
+                </ion-item>
+
+                <ion-button expand="block" class="registro-button" (click)="registrar()">
+                    Registrarse
+                </ion-button>
+
+            </ion-card-content>
+        </ion-card>
+
+        <p class="login-link">
+            ¿Ya tienes cuenta? <a (click)="login()">Inicia sesión</a>
+        </p>
+    </div>
+</ion-content>

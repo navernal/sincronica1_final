@@ -2,46 +2,90 @@
     <ion-toolbar color="light">
         <ion-title class="title">Agendar Cita</ion-title>
     </ion-toolbar>
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/home" text="Atrás" style="color: #e91e63; font-family: 'Poppins', sans-serif;"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content class="agendar-content ion-padding">
-    <div class="form-container">
-        <img src="assets/logo.png" alt="Logo Easy Nails" class="logo" />
+    <form [formGroup]="citaForm" (ngSubmit)="confirmarCita()">
+        <div class="form-container">
+            <img src="assets/icon/easy-nails.png" alt="Logo Easy Nails" class="logo" />
 
-        <h2 class="subtitle">¡Reserva tu momento especial!</h2>
+            <h2 class="subtitle">¡Reserva tu momento especial!</h2>
 
-        <ion-item fill="outline">
-            <ion-label position="floating">Nombre completo</ion-label>
-            <ion-input type="text"></ion-input>
-        </ion-item>
+            <!-- Nombre completo -->
+            <ion-item fill="outline">
+                <ion-label position="floating">Nombre completo</ion-label>
+                <ion-input type="text" formControlName="nombre"></ion-input>
+            </ion-item>
+            <ion-text color="danger" *ngIf="citaForm.get('nombre')?.touched && citaForm.get('nombre')?.invalid">
+                <p class="ion-padding-start">El nombre es obligatorio.</p>
+            </ion-text>
 
-        <ion-item fill="outline">
-            <ion-label position="floating">Correo electrónico</ion-label>
-            <ion-input type="email"></ion-input>
-        </ion-item>
+            <!-- Correo -->
+            <ion-item fill="outline">
+                <ion-label position="floating">Correo electrónico</ion-label>
+                <ion-input type="email" formControlName="correo"></ion-input>
+            </ion-item>
+            <ion-text color="danger" *ngIf="citaForm.get('correo')?.touched && citaForm.get('correo')?.errors?.['required']">
+                <p class="ion-padding-start">El correo es obligatorio.</p>
+            </ion-text>
+            <ion-text color="danger" *ngIf="citaForm.get('correo')?.errors?.['email']">
+                <p class="ion-padding-start">Ingresa un correo válido.</p>
+            </ion-text>
 
-        <ion-item fill="outline">
-            <ion-label position="floating">Fecha</ion-label>
-            <ion-datetime presentation="date"></ion-datetime>
-        </ion-item>
+            <!-- Fecha -->
+            <ion-item fill="outline">
+                <ion-label position="floating">Fecha</ion-label>
+                <ion-datetime presentation="date" formControlName="fecha"></ion-datetime>
+            </ion-item>
+            <ion-text color="danger" *ngIf="citaForm.get('fecha')?.touched && citaForm.get('fecha')?.invalid">
+                <p class="ion-padding-start">Selecciona una fecha.</p>
+            </ion-text>
 
-        <ion-item fill="outline">
-            <ion-label position="floating">Hora</ion-label>
-            <ion-datetime presentation="time"></ion-datetime>
-        </ion-item>
+            <!-- Hora -->
+            <ion-item fill="outline">
+                <ion-label position="floating">Hora</ion-label>
+                <ion-datetime presentation="time" formControlName="hora"></ion-datetime>
+            </ion-item>
+            <ion-text color="danger" *ngIf="citaForm.get('hora')?.touched && citaForm.get('hora')?.invalid">
+                <p class="ion-padding-start">Selecciona una hora.</p>
+            </ion-text>
 
-        <ion-item fill="outline">
-            <ion-label position="floating">Servicio</ion-label>
-            <ion-select interface="popover" placeholder="Selecciona un servicio">
-                <ion-select-option value="manicure">Manicure</ion-select-option>
-                <ion-select-option value="esmaltado">Esmaltado permanente</ion-select-option>
-                <ion-select-option value="polygel">Polygel</ion-select-option>
-                <ion-select-option value="pestanas">Lifting de pestañas</ion-select-option>
-            </ion-select>
-        </ion-item>
+            <!-- Servicio -->
+            <ion-item fill="outline">
+                <ion-label position="floating">Servicio</ion-label>
+                <ion-select interface="popover" placeholder="Selecciona un servicio" formControlName="servicio">
+                    <ion-select-option value="manicure">Manicure</ion-select-option>
+                    <ion-select-option value="esmaltado">Esmaltado permanente</ion-select-option>
+                    <ion-select-option value="polygel">Polygel</ion-select-option>
+                    <ion-select-option value="pestanas">Lifting de pestañas</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-text color="danger" *ngIf="citaForm.get('servicio')?.touched && citaForm.get('servicio')?.invalid">
+                <p class="ion-padding-start">Selecciona un servicio.</p>
+            </ion-text>
+            <ion-item fill="outline">
+                <ion-label position="floating">Manicurista</ion-label>
+                <ion-select interface="popover" placeholder="Selecciona un manicurista" formControlName="manicurista">
+                    <ion-select-option value="manicurista1">Manicurista 1</ion-select-option>
+                    <ion-select-option value="manicurista2">Manicurista 2</ion-select-option>
+                    <ion-select-option value="manicurista3">Manicurista 3</ion-select-option>
+                    <ion-select-option value="manicurista4">Manicurista 4</ion-select-option>
+                </ion-select>
+            </ion-item>
 
-        <ion-button expand="block" class="agendar-button">
-            Confirmar Cita
-        </ion-button>
+            <!-- Botón confirmar -->
+            <ion-button expand="block" class="agendar-button" type="submit" [disabled]="!citaForm.valid" style="--background: #e91e63; font-family: 'Poppins', sans-serif;">
+                Confirmar Cita
+            </ion-button>
+        </div>
+    </form>
+
+    <div #mensaje class="mensaje-animado" [class.oculto]="!mostrarMensaje">
+        Cita agendada con éxito! 🎉
     </div>
 </ion-content>

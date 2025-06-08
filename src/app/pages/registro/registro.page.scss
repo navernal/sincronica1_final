@@ -1,0 +1,93 @@
+.registro-bg {
+    --background: #f48fb1; // Fondo rosado suave
+}
+
+.registro-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.logo {
+    width: 120px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: 1.8rem;
+    color: #d63384;
+    font-weight: bold;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.subtitle {
+    font-size: 1rem;
+    color: #8d6e63;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+ion-label {
+    color: #c2185b;
+}
+
+ion-card.registro-card {
+    margin: 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 16px rgba(248, 150, 190, 0.2);
+}
+
+.input-item {
+    margin-top: 20px;
+    --highlight-color-focused: #e91e63;
+    --color: #c2185b;
+    --background: #fff;
+    --padding-start: 8px;
+    --border-radius: 10px;
+}
+
+ion-input {
+    --padding-start: 10px;
+    --padding-end: 10px;
+}
+
+.registro-button {
+    margin-top: 30px;
+    --border-radius: 12px;
+    --background: #f48fb1;
+    --background-hover: #f06292;
+    --ripple-color: transparent;
+    font-weight: bold;
+    color: white;
+}
+
+.registro-button::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    pointer-events: none;
+    background: rgba(248, 187, 208, 0.3);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.registro-button:active::after {
+    opacity: 1;
+    transition: opacity 0s;
+}
+
+.login-link {
+    margin-top: 15px;
+    color: #8d6e63;
+    font-size: 0.9rem;
+    a {
+        color: #d63384;
+        font-weight: bold;
+        text-decoration: none;
+    }
+}
