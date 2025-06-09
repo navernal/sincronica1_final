@@ -7,9 +7,10 @@
 
 .agendar-content {
     background: #fff0f5;
-    /* mismo rosa claro del Home */
     display: flex;
     justify-content: center;
+    height: 100%;
+    overflow-y: auto;
 }
 
 .form-container {
@@ -19,6 +20,7 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
+    padding-bottom: 150px;
 }
 
 .logo {
@@ -68,10 +70,8 @@ ion-label {
     font-weight: 600;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     opacity: 0;
-    /* inicial transparente */
     pointer-events: none;
     z-index: 9999;
-    /* transición para fallback si quieres */
     transition: opacity 0.3s ease;
 }
 

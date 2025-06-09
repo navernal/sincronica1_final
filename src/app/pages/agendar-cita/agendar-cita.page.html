@@ -9,14 +9,14 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content class="agendar-content ion-padding">
+<ion-content class="agendar-content ion-padding" scroll-y="true">
     <form [formGroup]="citaForm" (ngSubmit)="confirmarCita()">
         <div class="form-container">
             <img src="assets/icon/easy-nails.png" alt="Logo Easy Nails" class="logo" />
 
             <h2 class="subtitle">¡Reserva tu momento especial!</h2>
 
-            <!-- Nombre completo -->
+
             <ion-item fill="outline">
                 <ion-label position="floating">Nombre completo</ion-label>
                 <ion-input type="text" formControlName="nombre"></ion-input>
@@ -25,7 +25,7 @@
                 <p class="ion-padding-start">El nombre es obligatorio.</p>
             </ion-text>
 
-            <!-- Correo -->
+
             <ion-item fill="outline">
                 <ion-label position="floating">Correo electrónico</ion-label>
                 <ion-input type="email" formControlName="correo"></ion-input>
@@ -46,7 +46,7 @@
                 <p class="ion-padding-start">Selecciona una fecha.</p>
             </ion-text>
 
-            <!-- Hora -->
+
             <ion-item fill="outline">
                 <ion-label position="floating">Hora</ion-label>
                 <ion-datetime presentation="time" formControlName="hora"></ion-datetime>
@@ -55,11 +55,9 @@
                 <p class="ion-padding-start">Selecciona una hora.</p>
             </ion-text>
 
-            <!-- Servicio -->
             <ion-item fill="outline">
                 <ion-label position="floating">Servicio</ion-label>
                 <ion-select interface="popover" placeholder="Selecciona un servicio" formControlName="servicio">
-                    <ion-select-option value="manicure">Manicure</ion-select-option>
                     <ion-select-option value="esmaltado">Esmaltado permanente</ion-select-option>
                     <ion-select-option value="polygel">Polygel</ion-select-option>
                     <ion-select-option value="pestanas">Lifting de pestañas</ion-select-option>
@@ -73,12 +71,10 @@
                 <ion-select interface="popover" placeholder="Selecciona un manicurista" formControlName="manicurista">
                     <ion-select-option value="manicurista1">Manicurista 1</ion-select-option>
                     <ion-select-option value="manicurista2">Manicurista 2</ion-select-option>
-                    <ion-select-option value="manicurista3">Manicurista 3</ion-select-option>
-                    <ion-select-option value="manicurista4">Manicurista 4</ion-select-option>
                 </ion-select>
             </ion-item>
 
-            <!-- Botón confirmar -->
+
             <ion-button expand="block" class="agendar-button" type="submit" [disabled]="!citaForm.valid" style="--background: #e91e63; font-family: 'Poppins', sans-serif;">
                 Confirmar Cita
             </ion-button>
