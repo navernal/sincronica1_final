@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
 import { IonicModule } from '@ionic/angular';
 import { ReactiveFormsModule } from '@angular/forms'
-import { CommonModule } from '@angular/common';;
+;
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,9 +11,8 @@ import { Router } from '@angular/router';
   templateUrl: './registro.page.html',
     imports: [
     IonicModule,
-    ReactiveFormsModule,
-    CommonModule
-  ],
+    ReactiveFormsModule
+],
 })
 export class RegistroPage {
   registerForm: FormGroup;

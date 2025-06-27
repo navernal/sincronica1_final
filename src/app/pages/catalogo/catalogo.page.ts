@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-catalogo',
   templateUrl: './catalogo.page.html',
-  imports: [CommonModule, IonicModule,FormsModule],
+  imports: [IonicModule, FormsModule],
   styleUrls: ['./catalogo.page.scss'],
 })
 export class CatalogoPage implements OnInit {

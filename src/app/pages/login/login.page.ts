@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import {  ViewChild, ElementRef } from '@angular/core';
@@ -8,7 +8,7 @@ import { AnimationController } from '@ionic/angular';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, RouterModule],
+  imports: [IonicModule, FormsModule, RouterModule],
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
