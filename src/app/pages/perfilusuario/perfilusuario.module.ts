@@ -13,8 +13,8 @@ import { PerfilusuarioPage } from './perfilusuario.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    PerfilusuarioPageRoutingModule
-  ],
-  declarations: [PerfilusuarioPage]
+    PerfilusuarioPageRoutingModule,
+    PerfilusuarioPage
+  ]
 })
 export class PerfilusuarioPageModule {}

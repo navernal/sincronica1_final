@@ -121,21 +121,43 @@ export class DatabaseService {
   }
 }
 
-  async agregarUsuario(nombre: string, email: string, password: string, rut: string) {
-    await this.ensureDbReady();
+async obtenerUsuarioPorId(id: number): Promise<any> {
+  await this.ensureDbReady();
+  if (!this.dbInstance) return null;
 
-    if (!this.dbInstance) return;
+  try {
+    const res = await this.dbInstance.executeSql(`SELECT id, nombre, email, rut FROM usuarios WHERE id = ?`, [id]);
 
-    const sql = `INSERT INTO usuarios (nombre, email, password, rut) VALUES (?, ?, ?, ?)`;
-    const data = [nombre, email, password, rut];
-
-    try {
-      await this.dbInstance.executeSql(sql, data);
-      console.log('Usuario insertado');
-    } catch (error) {
-      console.error('Error insertando usuario:', error);
+    if (res.rows.length > 0) {
+      return res.rows.item(0); // Retorna el primer (y único) resultado
+    } else {
+      return null;
     }
+  } catch (error) {
+    console.error('Error al obtener usuario:', error);
+    return null;
   }
+}
+
+
+async agregarUsuario(nombre: string, email: string, password: string, rut: string): Promise<number | null> {
+  await this.ensureDbReady();
+  if (!this.dbInstance) return null;
+
+  const sql = `INSERT INTO usuarios (nombre, email, password, rut) VALUES (?, ?, ?, ?)`;
+  const data = [nombre, email, password, rut];
+
+  try {
+    const res = await this.dbInstance.executeSql(sql, data);
+    const insertId = res.insertId;
+    console.log('Usuario insertado con ID:', insertId);
+    return insertId;
+  } catch (error) {
+    console.error('Error insertando usuario:', error);
+    return null;
+  }
+}
+
 
   async obtenerUsuarios(): Promise<any[]> {
     await this.ensureDbReady();
@@ -368,6 +390,31 @@ async obtenerCatalogoPorManicurista(idManicurista: number): Promise<any[]> {
   }
   return lista;
 }
+
+async obtenerCitasPorUsuario(idUsuario: number): Promise<any[]> {
+  await this.ensureDbReady();
+  if (!this.dbInstance) return [];
+
+  try {
+    const res = await this.dbInstance.executeSql(
+      `SELECT a.id, a.fecha, a.hora, a.servicio, m.nombre AS manicurista
+       FROM agenda a
+       JOIN manicurista m ON a.idManicurista = m.id
+       WHERE a.idUsuario = ? ORDER BY a.fecha DESC, a.hora ASC`,
+      [idUsuario]
+    );
+
+    const citas: any[] = [];
+    for (let i = 0; i < res.rows.length; i++) {
+      citas.push(res.rows.item(i));
+    }
+    return citas;
+  } catch (error) {
+    console.error('Error obteniendo citas del usuario:', error);
+    return [];
+  }
+}
+
 
 
 }

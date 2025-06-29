@@ -3,6 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
 import { IonicModule } from '@ionic/angular';
 import { ReactiveFormsModule } from '@angular/forms'
+import { DatabaseService } from '../../services/database.service';
+import { Storage } from '@ionic/storage-angular';
+
+
 ;
 import { Router } from '@angular/router';
 
@@ -17,23 +21,53 @@ import { Router } from '@angular/router';
 export class RegistroPage {
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private alertCtrl: AlertController,private router: Router) {
-    this.registerForm = this.fb.group({
-      nombre: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*\d).{1,12}$/)]],
-      rut: ['', [Validators.required, this.validarRut]],
-    });
-  }
+constructor(
+  private fb: FormBuilder,
+  private alertCtrl: AlertController,
+  private router: Router,
+  private dbService: DatabaseService,
+  private storage: Storage
+) {
+  this.registerForm = this.fb.group({
+    nombre: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*\d).{1,12}$/)]],
+    rut: ['', [Validators.required, this.validarRut]],
+  });
 
-  registrar() {
-    if (this.registerForm.valid) {
-      console.log('Datos enviados:', this.registerForm.value);
-      this.mostrarAlerta('Registro exitoso', 'Tu cuenta ha sido creada correctamente.');
-      this.registerForm.reset();
-      this.router.navigate(['/home']);
+  this.initStorage(); 
+}
+
+async initStorage() {
+  await this.storage.create();
+}
+
+async registrar() {
+  if (this.registerForm.valid) {
+    const { nombre, email, password, rut } = this.registerForm.value;
+
+    try {
+      const usuarioId = await this.dbService.agregarUsuario(nombre, email, password, rut);
+      
+      if (usuarioId !== null) {
+        await this.storage.set('usuarioId', usuarioId);
+        console.log('ID guardado en storage:', usuarioId);
+
+        this.mostrarAlerta('Registro exitoso', 'Tu cuenta ha sido creada correctamente.');
+        this.registerForm.reset();
+        this.router.navigate(['/home']);
+      } else {
+        this.mostrarAlerta('Error', 'No se pudo obtener el ID del usuario.');
+      }
+    } catch (error) {
+      console.error('Error al registrar:', error);
+      this.mostrarAlerta('Error', 'No se pudo registrar el usuario.');
     }
+  } else {
+    this.mostrarAlerta('Formulario inválido', 'Por favor completa todos los campos correctamente.');
   }
+}
+
 
   login() {
     this.router.navigate(['/login']);

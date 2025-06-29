@@ -12,13 +12,15 @@ export class HomePage {
   constructor(private router: Router) {}
 
     agendarCita() {
-    // Aquí puedes agregar validaciones en el futuro si quieres
     this.router.navigate(['/agendar-cita']);
   }
 
       perfil() {
-    // Aquí puedes agregar validaciones en el futuro si quieres
     this.router.navigate(['/perfil']);
+  }
+
+  perfilUsuario() {
+    this.router.navigate(['/perfilusuario']);
   }
 
 }

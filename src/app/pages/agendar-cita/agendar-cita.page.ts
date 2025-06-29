@@ -4,9 +4,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Storage } from '@ionic/storage-angular';
+import { Router } from '@angular/router';
 
-import { DatabaseService } from '../../services/database.service';  // Ajusta la ruta según tu proyecto
-
+import { DatabaseService } from '../../services/database.service';  
 @Component({
   selector: 'app-agendar-cita',
     imports: [         
@@ -27,7 +27,8 @@ constructor(
   private fb: FormBuilder,
   private animationCtrl: AnimationController,
   private dbService: DatabaseService,
-  private storage: Storage
+  private storage: Storage,
+    private router: Router,
 ) {
   this.citaForm = this.fb.group({
     nombre: ['', Validators.required],
@@ -70,6 +71,7 @@ async confirmarCita() {
       this.animarMensaje();
 
       this.citaForm.reset();
+      this.router.navigate(['/home']);
 
     } catch (error) {
       console.error('Error guardando la cita:', error);
