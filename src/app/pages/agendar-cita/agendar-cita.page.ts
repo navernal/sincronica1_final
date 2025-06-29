@@ -1,50 +1,87 @@
-import { Component } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
-
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { IonicModule, AnimationController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { OnInit } from '@angular/core';
-import { ViewChild, ElementRef } from '@angular/core';
-import { AnimationController } from '@ionic/angular';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Storage } from '@ionic/storage-angular';
+
+import { DatabaseService } from '../../services/database.service';  // Ajusta la ruta según tu proyecto
 
 @Component({
   selector: 'app-agendar-cita',
-  standalone: false,
+    imports: [         
+    IonicModule,
+    FormsModule,
+    ReactiveFormsModule,
+   CommonModule  ],
   templateUrl: 'agendar-cita.page.html',
   styleUrls: ['agendar-cita.page.scss'],
 })
 export class AgendarCitaPage implements OnInit {
   citaForm: FormGroup;
-    @ViewChild('mensaje', { static: false }) mensaje!: ElementRef;
+  manicuristas: any[] = [];
+  @ViewChild('mensaje', { static: false }) mensaje!: ElementRef;
   mostrarMensaje = false;
 
+constructor(
+  private fb: FormBuilder,
+  private animationCtrl: AnimationController,
+  private dbService: DatabaseService,
+  private storage: Storage
+) {
+  this.citaForm = this.fb.group({
+    nombre: ['', Validators.required],
+    correo: ['', [Validators.required, Validators.email]],
+    fecha: ['', Validators.required],
+    hora: ['', Validators.required],
+    servicio: ['', Validators.required],
+    manicurista: ['', Validators.required],  
+  });
+}
 
-  constructor(private fb: FormBuilder,private animationCtrl: AnimationController) {
-    this.citaForm = this.fb.group({
-      nombre: ['', Validators.required],
-      correo: ['', [Validators.required, Validators.email]],
-      fecha: ['', Validators.required],
-      hora: ['', Validators.required],
-      servicio: ['', Validators.required],
-    });
+
+  async ngOnInit() {
+    this.manicuristas = await this.dbService.obtenerManicuristas();
   }
 
-  ngOnInit() {}
+async confirmarCita() {
+  if (this.citaForm.valid) {
+    const datos = this.citaForm.value;
+    const idUsuario = await this.storage.get('usuarioId'); 
 
-  confirmarCita() {
-    if (this.citaForm.valid) {
-      const datos = this.citaForm.value;
+    if (!idUsuario) {
+      console.error('No se encontró usuario logueado');
+      return;
+    }
+
+    try {
+      await this.dbService.agendarCita(
+        datos.nombre,
+        datos.correo,
+        datos.fecha,
+        datos.hora,
+        datos.servicio,
+        Number(datos.manicurista),
+        idUsuario 
+      );
+
       console.log('Cita confirmada con:', datos);
-
       this.mostrarMensaje = true;
       this.animarMensaje();
 
-    } else {
-      console.log('Formulario incompleto o inválido');
-    }
-  }
+      this.citaForm.reset();
 
-    animarMensaje() {
+    } catch (error) {
+      console.error('Error guardando la cita:', error);
+    }
+
+  } else {
+    console.log('Formulario incompleto o inválido');
+  }
+}
+
+
+  animarMensaje() {
     const animation = this.animationCtrl.create()
       .addElement(this.mensaje.nativeElement)
       .duration(5000)

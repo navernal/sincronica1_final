@@ -15,8 +15,8 @@ import { AgendarCitaPage } from './agendar-cita.page';
     FormsModule,
     IonicModule,
     AgendarCitaPageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AgendarCitaPage
   ],
-  declarations: [AgendarCitaPage]
 })
 export class AgendarCitaPageModule {}

@@ -1,48 +1,55 @@
 <ion-header>
-  <ion-toolbar color="light">
-    <ion-title class="title">Catálogo</ion-title>
-  </ion-toolbar>
-  <ion-toolbar color="light">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home" text="Atrás" style="color: #e91e63; font-family: 'Poppins', sans-serif;"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-toolbar color="light">
+        <ion-title class="title">Catálogo</ion-title>
+    </ion-toolbar>
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/home" text="Atrás" style="color: #e91e63; font-family: 'Poppins', sans-serif;"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  @for (trabajo of trabajos; track trabajo) {
-    <ion-card>
-      <img src="../assets/img/foto1.jpg" alt="Imagen de uñas" style="width: 300px; height:auto" />
-      <ion-card-header>
-        <ion-card-subtitle>Realizado el: {{ trabajo.fecha }}</ion-card-subtitle>
-      </ion-card-header>
-      <ion-card-content>
-        <ion-label><strong>Comentarios:</strong></ion-label>
-        @if (trabajo.comentarios.length > 0) {
-          <ion-list>
-            @for (comentario of trabajo.comentarios; track comentario) {
-              <ion-item>
-                <ion-label>
-                  <strong>{{ comentario.nombreCliente }}:</strong> {{ comentario.mensaje }}
-                  <div class="fecha">{{ comentario.fechaComentario }}</div>
-                </ion-label>
-              </ion-item>
-            }
-          </ion-list>
-        }
-        @if (trabajo.comentarios.length === 0) {
-          <ion-text>Aún no hay comentarios.</ion-text>
-        }
-        <ion-item>
-          <ion-input [(ngModel)]="nombreCliente" placeholder="Tu nombre"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-textarea [(ngModel)]="nuevoComentario" placeholder="Escribe tu comentario..."></ion-textarea>
-        </ion-item>
-        <ion-button expand="block" (click)="agregarComentario(trabajo.id)">
-          Agregar comentario
-        </ion-button>
-      </ion-card-content>
-    </ion-card>
-  }
+    <ion-list *ngFor="let trabajo of trabajos; trackBy: trackByIndex">
+        <ion-card>
+            <img [src]="trabajo.imagenUrl" alt="Imagen de uñas" style="width: 300px; height:auto" />
+            <ion-card-header>
+                <ion-card-subtitle>Realizado el: {{ trabajo.fecha }}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-label><strong>Comentarios:</strong></ion-label>
+
+                <ion-list *ngIf="trabajo.comentarios && trabajo.comentarios.length > 0; else sinComentarios">
+                    <ion-item *ngFor="let comentario of trabajo.comentarios; trackBy: trackByIndex">
+                        <ion-label>
+                            <strong>{{ comentario.nombreCliente }}:</strong> {{ comentario.mensaje }}
+                            <div class="fecha">{{ comentario.fechaComentario }}</div>
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+
+                <ng-template #sinComentarios>
+                    <ion-text>Aún no hay comentarios.</ion-text>
+                </ng-template>
+
+
+                <ion-item>
+                    <ion-input [(ngModel)]="comentariosTemporales[trabajo.id].nombreCliente" placeholder="Tu nombre">
+                    </ion-input>
+                </ion-item>
+
+                <ion-item>
+                    <ion-textarea [(ngModel)]="comentariosTemporales[trabajo.id].nuevoComentario" placeholder="Escribe tu comentario...">
+                    </ion-textarea>
+                </ion-item>
+
+                <ion-button expand="block" (click)="agregarComentario(trabajo.id)" [disabled]="!comentariosTemporales[trabajo.id].nombreCliente.trim() || !comentariosTemporales[trabajo.id].nuevoComentario.trim()">
+                    Agregar comentario
+                </ion-button>
+
+
+            </ion-card-content>
+        </ion-card>
+    </ion-list>
+
 </ion-content>

@@ -1,35 +1,33 @@
 <ion-header>
-  <ion-toolbar color="light">
-    <ion-title class="title">Manicuristas</ion-title>
-  </ion-toolbar>
-  <ion-toolbar color="light">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home" text="Atrás" style="color: #e91e63; font-family: 'Poppins', sans-serif;"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-toolbar color="light">
+        <ion-title class="title">Manicuristas</ion-title>
+    </ion-toolbar>
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/home" text="Atrás" style="color: #e91e63; font-family: 'Poppins', sans-serif;"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content class="perfil-content ion-padding">
-  <ion-list>
-    @for (manicurista of manicuristas; track manicurista) {
-      <ion-card class="perfil-card">
-        <ion-card-header>
-          <ion-card-title>{{ manicurista.nombre }}</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <p><strong>Dirección:</strong> {{ manicurista.direccion }}</p>
-          <p><strong>Teléfono:</strong> {{ manicurista.telefono }}</p>
-          <p>
-            <strong>Instagram:</strong>
-            <a href="{{ manicurista.instagram }}" target="_blank" rel="noopener noreferrer">
-              {{ manicurista.instagram }}
-            </a>
-          </p>
-          <ion-button expand="block" class="catalogo-button" (click)="verCatalogo(manicurista.id)">
-            Ver catálogo
-          </ion-button>
-        </ion-card-content>
-      </ion-card>
-    }
-  </ion-list>
+    <ion-list>
+        <ion-card class="perfil-card" *ngFor="let manicurista of manicuristas; trackBy: trackById">
+            <ion-card-header>
+                <ion-card-title>{{ manicurista.nombre }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+                <p><strong>Dirección:</strong> {{ manicurista.direccion }}</p>
+                <p><strong>Teléfono:</strong> {{ manicurista.telefono }}</p>
+                <p>
+                    <strong>Instagram:</strong>
+                    <a href="{{ manicurista.instagram }}" target="_blank" rel="noopener noreferrer">
+          {{ manicurista.instagram }}
+        </a>
+                </p>
+                <ion-button expand="block" class="catalogo-button" (click)="verCatalogo(manicurista.id)">
+                    Ver catálogo
+                </ion-button>
+            </ion-card-content>
+        </ion-card>
+    </ion-list>
 </ion-content>

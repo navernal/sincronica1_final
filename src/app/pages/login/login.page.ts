@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import {  ViewChild, ElementRef } from '@angular/core';
 import { AnimationController } from '@ionic/angular';
+import { Storage } from '@ionic/storage-angular';
+import { DatabaseService } from '../../services/database.service';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -15,17 +17,38 @@ import { AnimationController } from '@ionic/angular';
 export class LoginPage {
 
   @ViewChild('mensajeBienvenida', { static: true }) mensajeBienvenida!: ElementRef;
-    constructor(private router: Router,private animationCtrl: AnimationController) {}
+    correo: string = '';
+  password: string = '';
+    constructor(private router: Router,private animationCtrl: AnimationController,
+      private storage: Storage,private dbService: DatabaseService) {}
 
 registro (){
   this.router.navigate(['/registro']);
 }
 
-login() {
-  this.animarBienvenida().then(() => {
-    this.router.navigate(['/home']);
-  });
+async login() {
+  if (!this.correo || !this.password) {
+    alert('Por favor ingresa correo y contraseña');
+    return;
+  }
+
+  try {
+    const usuario = await this.dbService.validarUsuario(this.correo, this.password);
+    if (usuario) {
+      await this.storage.set('usuarioId', usuario.id);
+
+      await this.animarBienvenida();
+
+      this.router.navigate(['/home']);
+    } else {
+      alert('Correo o contraseña incorrectos');
+    }
+  } catch (error) {
+    console.error('Error validando usuario:', error);
+    alert('Error en el proceso de login');
+  }
 }
+
 
   animarBienvenida(): Promise<void> {
   return new Promise((resolve) => {
@@ -46,7 +69,7 @@ login() {
 
     animation.onFinish(() => {
       this.mensajeBienvenida.nativeElement.classList.add('oculto');
-      resolve(); // Termina la promesa
+      resolve(); 
     });
   });
 }

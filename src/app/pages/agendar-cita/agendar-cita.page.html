@@ -1,99 +1,102 @@
 <ion-header>
-  <ion-toolbar color="light">
-    <ion-title class="title">Agendar Cita</ion-title>
-  </ion-toolbar>
-  <ion-toolbar color="light">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home" text="Atrás" style="color: #e91e63; font-family: 'Poppins', sans-serif;"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-toolbar color="light">
+        <ion-title class="title">Agendar Cita</ion-title>
+    </ion-toolbar>
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/home" text="Atrás" style="color: #e91e63; font-family: 'Poppins', sans-serif;"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content class="agendar-content ion-padding" scroll-y="true">
-  <form [formGroup]="citaForm" (ngSubmit)="confirmarCita()">
-    <div class="form-container">
-      <img src="assets/icon/easy-nails.png" alt="Logo Easy Nails" class="logo" />
+    <form [formGroup]="citaForm" (ngSubmit)="confirmarCita()">
+        <div class="form-container">
+            <img src="assets/icon/easy-nails.png" alt="Logo Easy Nails" class="logo" />
 
-      <h2 class="subtitle">¡Reserva tu momento especial!</h2>
-
-
-      <ion-item fill="outline">
-        <ion-label position="floating">Nombre completo</ion-label>
-        <ion-input type="text" formControlName="nombre"></ion-input>
-      </ion-item>
-      @if (citaForm.get('nombre')?.touched && citaForm.get('nombre')?.invalid) {
-        <ion-text color="danger">
-          <p class="ion-padding-start">El nombre es obligatorio.</p>
-        </ion-text>
-      }
+            <h2 class="subtitle">¡Reserva tu momento especial!</h2>
 
 
-      <ion-item fill="outline">
-        <ion-label position="floating">Correo electrónico</ion-label>
-        <ion-input type="email" formControlName="correo"></ion-input>
-      </ion-item>
-      @if (citaForm.get('correo')?.touched && citaForm.get('correo')?.errors?.['required']) {
-        <ion-text color="danger">
-          <p class="ion-padding-start">El correo es obligatorio.</p>
-        </ion-text>
-      }
-      @if (citaForm.get('correo')?.errors?.['email']) {
-        <ion-text color="danger">
-          <p class="ion-padding-start">Ingresa un correo válido.</p>
-        </ion-text>
-      }
-
-      <!-- Fecha -->
-      <ion-item fill="outline">
-        <ion-label position="floating">Fecha</ion-label>
-        <ion-datetime presentation="date" formControlName="fecha"></ion-datetime>
-      </ion-item>
-      @if (citaForm.get('fecha')?.touched && citaForm.get('fecha')?.invalid) {
-        <ion-text color="danger">
-          <p class="ion-padding-start">Selecciona una fecha.</p>
-        </ion-text>
-      }
+            <ion-item fill="outline">
+                <ion-label position="floating">Nombre completo</ion-label>
+                <ion-input type="text" formControlName="nombre"></ion-input>
+            </ion-item>
+            @if (citaForm.get('nombre')?.touched && citaForm.get('nombre')?.invalid) {
+            <ion-text color="danger">
+                <p class="ion-padding-start">El nombre es obligatorio.</p>
+            </ion-text>
+            }
 
 
-      <ion-item fill="outline">
-        <ion-label position="floating">Hora</ion-label>
-        <ion-datetime presentation="time" formControlName="hora"></ion-datetime>
-      </ion-item>
-      @if (citaForm.get('hora')?.touched && citaForm.get('hora')?.invalid) {
-        <ion-text color="danger">
-          <p class="ion-padding-start">Selecciona una hora.</p>
-        </ion-text>
-      }
+            <ion-item fill="outline">
+                <ion-label position="floating">Correo electrónico</ion-label>
+                <ion-input type="email" formControlName="correo"></ion-input>
+            </ion-item>
+            @if (citaForm.get('correo')?.touched && citaForm.get('correo')?.errors?.['required']) {
+            <ion-text color="danger">
+                <p class="ion-padding-start">El correo es obligatorio.</p>
+            </ion-text>
+            } @if (citaForm.get('correo')?.errors?.['email']) {
+            <ion-text color="danger">
+                <p class="ion-padding-start">Ingresa un correo válido.</p>
+            </ion-text>
+            }
 
-      <ion-item fill="outline">
-        <ion-label position="floating">Servicio</ion-label>
-        <ion-select interface="popover" placeholder="Selecciona un servicio" formControlName="servicio">
-          <ion-select-option value="esmaltado">Esmaltado permanente</ion-select-option>
-          <ion-select-option value="polygel">Polygel</ion-select-option>
-          <ion-select-option value="pestanas">Lifting de pestañas</ion-select-option>
-        </ion-select>
-      </ion-item>
-      @if (citaForm.get('servicio')?.touched && citaForm.get('servicio')?.invalid) {
-        <ion-text color="danger">
-          <p class="ion-padding-start">Selecciona un servicio.</p>
-        </ion-text>
-      }
-      <ion-item fill="outline">
-        <ion-label position="floating">Manicurista</ion-label>
-        <ion-select interface="popover" placeholder="Selecciona un manicurista" formControlName="manicurista">
-          <ion-select-option value="manicurista1">Manicurista 1</ion-select-option>
-          <ion-select-option value="manicurista2">Manicurista 2</ion-select-option>
-        </ion-select>
-      </ion-item>
+            <ion-item fill="outline">
+                <ion-label position="floating">Fecha</ion-label>
+                <ion-datetime presentation="date" formControlName="fecha"></ion-datetime>
+            </ion-item>
+            @if (citaForm.get('fecha')?.touched && citaForm.get('fecha')?.invalid) {
+            <ion-text color="danger">
+                <p class="ion-padding-start">Selecciona una fecha.</p>
+            </ion-text>
+            }
 
 
-      <ion-button expand="block" class="agendar-button" type="submit" [disabled]="!citaForm.valid" style="--background: #e91e63; font-family: 'Poppins', sans-serif;">
-        Confirmar Cita
-      </ion-button>
+            <ion-item fill="outline">
+                <ion-label position="floating">Hora</ion-label>
+                <ion-datetime presentation="time" formControlName="hora"></ion-datetime>
+            </ion-item>
+            @if (citaForm.get('hora')?.touched && citaForm.get('hora')?.invalid) {
+            <ion-text color="danger">
+                <p class="ion-padding-start">Selecciona una hora.</p>
+            </ion-text>
+            }
+
+            <ion-item fill="outline">
+                <ion-label position="floating">Servicio</ion-label>
+                <ion-select interface="popover" placeholder="Selecciona un servicio" formControlName="servicio">
+                    <ion-select-option value="esmaltado">Esmaltado permanente</ion-select-option>
+                    <ion-select-option value="polygel">Polygel</ion-select-option>
+                    <ion-select-option value="pestanas">Lifting de pestañas</ion-select-option>
+                </ion-select>
+            </ion-item>
+            @if (citaForm.get('servicio')?.touched && citaForm.get('servicio')?.invalid) {
+            <ion-text color="danger">
+                <p class="ion-padding-start">Selecciona un servicio.</p>
+            </ion-text>
+            }
+            <ion-item fill="outline">
+                <ion-label position="floating">Manicurista</ion-label>
+                <ion-select interface="popover" placeholder="Selecciona un manicurista" formControlName="manicurista">
+                    <ion-select-option *ngFor="let m of manicuristas" [value]="m.id">
+                        {{ m.nombre }}
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-text color="danger" *ngIf="citaForm.get('manicurista')?.touched && citaForm.get('manicurista')?.invalid">
+                <p class="ion-padding-start">Selecciona un manicurista.</p>
+            </ion-text>
+
+
+
+            <ion-button expand="block" class="agendar-button" type="submit" [disabled]="!citaForm.valid" style="--background: #e91e63; font-family: 'Poppins', sans-serif;">
+                Confirmar Cita
+            </ion-button>
+        </div>
+    </form>
+
+    <div #mensaje class="mensaje-animado" [class.oculto]="!mostrarMensaje">
+        Cita agendada con éxito! 🎉
     </div>
-  </form>
-
-  <div #mensaje class="mensaje-animado" [class.oculto]="!mostrarMensaje">
-    Cita agendada con éxito! 🎉
-  </div>
 </ion-content>
