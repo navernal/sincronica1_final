@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'sincronica1final',
+  appId: 'com.easynails.app',
+  appName: 'Easy Nails',
   webDir: 'www'
 };
 
